@@ -1,32 +1,22 @@
 #!/bin/bash
 
-# Run 'find' to search for all directories that contain '.git', and save
-# the output to some file that can be read in here, rather than manually
-# listing the path to every respository.
 
-#declare -a REPOS=( "/home/users/laurel07/dotfiles/custom-configs"
-#    "/home/users/laurel07/courses/a555/a555/"
-#    "/solarstorm/laurel07/Research_repo/"
-#    )
+# Top directory to start searching for repositories
+my_path=$(echo ${HOME})
 
-#my_path=$(echo ${HOME})
-
+# Array of directory names that contain ".git/".
+# (Could also enter directories manually instead of using 'find'.)
 declare -a REPOS=$(
     echo "("
-    find ${HOME} maxdepth 2 -type d -iname ".git" -printf '"%p" '
+    find ${my_path} -maxdepth 2 -type d -iname ".git" -printf '"%p" '
     echo ")"
     )
 
-#declare -a REPOS=$(
-#    echo "("
-#    find /solarstorm/laurel07 -type d -iname ".git" -printf '"%p" '
-#    echo ")")
-
-echo "----------------------------------"
+# Display directory name along with output of 'git status'.
+echo "--------------------------------------------"
 for d in "${REPOS[@]}"
 do
     echo "$( dirname $d )"
     git --git-dir="$d" --work-tree="$( dirname $d )" status
-    echo "----------------------------------"
+    echo "--------------------------------------------"
 done
-    #git --git-dir="$f/.git" --work-tree="$f" status
