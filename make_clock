@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# save cursor position
+tput sc
+
+# move cursor to location where clock will be
+tput cup $(($(tput lines)+5)) $(($(tput cols)-7))
+
+# print date on screen
+echo $(date +%R)
+
+# return cursor to saved position
+tput rc
+
+
+
+#tput sc;tput cup 102 $(($(tput cols)-12));date +%R;tput rc;
+#while true; do 
+#102 $(($(tput cols)-12));date +%R;tput rc
+#; sleep 60;
+#done &
